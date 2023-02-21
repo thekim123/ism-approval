@@ -3,23 +3,33 @@ package com.hictc.ism.domain.approval;
 
 import com.hictc.ism.domain.user.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Approval {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    private User user;
+
+    @OneToMany
+    private List<ApprovalLine> approvalLine;
+
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

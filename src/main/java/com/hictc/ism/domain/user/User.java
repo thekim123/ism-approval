@@ -21,11 +21,14 @@ public class User {
     private String username;
     private String password;
 
+    private String name;
+
     @OneToOne
     private Company company;
 
     private LocalDateTime birthDay;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
 }

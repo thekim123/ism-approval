@@ -1,4 +1,4 @@
-package com.hictc.ism.domain.reserve;
+package com.hictc.ism.domain.asset;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,23 +7,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
-public class Reserve {
+public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Visitor> visitor;
+    private String name;
 
+    private String serialNumber;
+
+    @Enumerated(EnumType.STRING)
+    private AssetType assetType;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }
