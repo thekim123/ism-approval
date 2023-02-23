@@ -14,16 +14,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Visitor {
+@DiscriminatorValue("visitor")
+public class Visitor extends Input {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-
-    @Enumerated(EnumType.STRING)
-    private Purpose purpose;
 
     private LocalDateTime birthDay;
     private LocalDateTime createdAt;

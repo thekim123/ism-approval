@@ -1,6 +1,7 @@
 package com.hictc.ism.domain.reserve;
 
-public enum Purpose {
+public enum VIsitPurpose {
 
     WORK, TRASH
 }
+
