@@ -1,4 +1,4 @@
-package com.hictc.ism.domain.reserve;
+package com.hictc.ism.reserve;
 
 public enum VIsitPurpose {
 

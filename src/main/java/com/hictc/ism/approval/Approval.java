@@ -1,7 +1,8 @@
-package com.hictc.ism.domain.approval;
+package com.hictc.ism.approval;
 
 
-import com.hictc.ism.domain.user.User;
+import com.hictc.ism.reserve.Input;
+import com.hictc.ism.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,12 +23,14 @@ public class Approval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "approval", fetch = FetchType.LAZY)
     private List<ApprovalLine> approvalLine;
 
+    @OneToMany
+    private List<Input> input;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

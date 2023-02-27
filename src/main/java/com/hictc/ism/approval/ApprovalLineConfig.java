@@ -1,28 +1,33 @@
-package com.hictc.ism.domain.approval;
+package com.hictc.ism.approval;
 
+import com.hictc.ism.user.entity.Organization;
+import com.hictc.ism.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApprovalLine {
+@Getter
+public class ApprovalLineConfig {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer sequence;
+    private Integer step;
+
+    @ManyToOne
+    private User requestUser;
+
+    @ManyToOne
+    private Organization organization;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

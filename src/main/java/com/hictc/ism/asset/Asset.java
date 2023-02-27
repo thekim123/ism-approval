@@ -1,34 +1,32 @@
-package com.hictc.ism.domain.user;
+package com.hictc.ism.asset;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
-public class User {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String username;
-    private String password;
-
     private String name;
 
-    @OneToOne
-    private Company company;
+    private String serialNumber;
 
-    private LocalDateTime birthDay;
+    @Enumerated(EnumType.STRING)
+    private AssetType assetType;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 
 }

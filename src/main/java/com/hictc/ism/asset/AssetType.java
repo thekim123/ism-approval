@@ -1,4 +1,4 @@
-package com.hictc.ism.domain.asset;
+package com.hictc.ism.asset;
 
 public enum AssetType {
     NOTEBOOK, PDA, USB, PHONE

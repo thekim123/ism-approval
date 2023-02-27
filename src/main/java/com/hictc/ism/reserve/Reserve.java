@@ -1,5 +1,4 @@
-package com.hictc.ism.domain.reserve;
-
+package com.hictc.ism.reserve;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,20 +7,23 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-@DiscriminatorValue("visitor")
-public class Visitor extends Input {
+public class Reserve {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime birthDay;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Visitor> visitor;
+
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
