@@ -1,7 +1,7 @@
-package com.hictc.ism.approval;
+package com.hictc.ism.entity.approval;
 
-import com.hictc.ism.user.entity.Organization;
-import com.hictc.ism.user.entity.User;
+import com.hictc.ism.entity.user.Organization;
+import com.hictc.ism.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,28 +1,26 @@
-package com.hictc.ism.reserve;
+package com.hictc.ism.entity.user;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Getter
-public class Reserve {
-
+@Entity
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Visitor> visitor;
+    @Column(unique = true, nullable = false)
+    private String companyCode;
 
+    @Column(unique = true, nullable = false)
+    private String companyName;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

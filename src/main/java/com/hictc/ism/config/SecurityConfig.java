@@ -18,7 +18,6 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeRequests(authorize -> authorize
-                        .antMatchers("/image/**", "/subscibe/**", "/comment/**", "/api/**").authenticated()
                         .anyRequest().permitAll())
                 .formLogin()
                 .loginPage("/auth/signin")        //GET

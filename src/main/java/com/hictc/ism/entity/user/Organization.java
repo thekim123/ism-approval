@@ -1,4 +1,4 @@
-package com.hictc.ism.user.entity;
+package com.hictc.ism.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

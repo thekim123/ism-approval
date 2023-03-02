@@ -1,5 +1,4 @@
-package com.hictc.ism.reserve;
-
+package com.hictc.ism.entity.asset;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,18 +9,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
-@DiscriminatorValue("visitor")
-public class Visitor extends Input {
+public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime birthDay;
+    private String name;
+
+    private String serialNumber;
+
+    @Enumerated(EnumType.STRING)
+    private AssetType assetType;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

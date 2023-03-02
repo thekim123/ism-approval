@@ -1,8 +1,8 @@
 package com.hictc.ism.config.auth;
 
+import com.hictc.ism.entity.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;

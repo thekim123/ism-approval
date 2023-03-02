@@ -1,7 +1,8 @@
-package com.hictc.ism.user.repository;
+package com.hictc.ism.repository;
 
-import com.hictc.ism.user.entity.User;
+import com.hictc.ism.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
 }

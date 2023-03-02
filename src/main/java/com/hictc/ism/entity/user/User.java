@@ -1,18 +1,19 @@
-package com.hictc.ism.user.entity;
+package com.hictc.ism.entity.user;
 
-import com.hictc.ism.approval.Approval;
-import com.hictc.ism.user.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hictc.ism.entity.approval.Approval;
+import com.hictc.ism.entity.reserve.Visitor;
+import com.hictc.ism.dto.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
     private String password;
 
@@ -39,9 +40,13 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Approval> approvals;
+    private List<Approval> approvals = new ArrayList<>();
 
-    @OneToOne
+    @JsonIgnoreProperties({"staffUser"})
+    @OneToMany(mappedBy = "staffUser", fetch = FetchType.LAZY)
+    private List<Visitor> visitors = new ArrayList<>();
+
+    @ManyToOne
     private Company company;
 
     @ManyToOne
@@ -58,12 +63,12 @@ public class User {
         return this;
     }
 
-    public User dtoToEntity(UserDto dto) {
-        this.username = dto.getUsername();
-        this.name = dto.getName();
-        this.password = dto.getPassword();
-        this.email = dto.getEmail();
-        this.birthDay = dto.getBirthDay();
+    public User dtoToEntity(UserDto.Create dto) {
+        this.username = dto.getUsername() != null ? dto.getUsername() : this.username;
+        this.name = dto.getName() != null ? dto.getName() : this.name;
+        this.password = dto.getPassword() != null ? dto.getPassword() : this.password;
+        this.email = dto.getEmail() != null ? dto.getEmail() : this.email;
+        this.birthDay = dto.getBirthDay() != null ? dto.getBirthDay() : this.birthDay;
         return this;
     }
 

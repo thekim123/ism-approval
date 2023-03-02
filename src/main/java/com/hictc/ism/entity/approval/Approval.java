@@ -1,8 +1,8 @@
-package com.hictc.ism.approval;
+package com.hictc.ism.entity.approval;
 
 
-import com.hictc.ism.reserve.Input;
-import com.hictc.ism.user.entity.User;
+import com.hictc.ism.entity.reserve.Visitor;
+import com.hictc.ism.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class Approval {
     private List<ApprovalLine> approvalLine;
 
     @OneToMany
-    private List<Input> input;
+    private List<Visitor> input;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

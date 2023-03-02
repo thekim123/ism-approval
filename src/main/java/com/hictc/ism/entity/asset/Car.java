@@ -1,29 +1,30 @@
-package com.hictc.ism.approval;
+package com.hictc.ism.entity.asset;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApprovalLine {
+@Getter
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer sequence;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "approvalId")
-    private Approval approval;
+    private String carNumber;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
