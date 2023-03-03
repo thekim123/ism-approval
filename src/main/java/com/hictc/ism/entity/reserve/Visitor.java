@@ -4,10 +4,10 @@ package com.hictc.ism.entity.reserve;
 import com.hictc.ism.dto.reserve.VisitorCreateDto;
 import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.asset.Asset;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.hictc.ism.entity.asset.AssetType;
+import com.hictc.ism.entity.user.User;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public class Visitor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
@@ -37,7 +37,7 @@ public class Visitor {
     @Column(nullable = false)
     private VIsitPurpose purpose;
 
-    @OneToMany
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
     private List<Asset> assets = new ArrayList<>();
     @ManyToOne
     private Approval approval;
@@ -45,6 +45,7 @@ public class Visitor {
     @Column
     private boolean report;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDay;
 
     private LocalDateTime createdAt;
@@ -52,18 +53,24 @@ public class Visitor {
 
     private LocalDateTime updatedAt;
 
-    public Visitor dtoToEntity(VisitorCreateDto dto) {
+    public void withReserve(Reserve reserve) {
+        this.reserve = reserve;
+    }
 
+
+    public void withAssets(VisitorCreateDto dto) {
+        List<Asset> assetList = new ArrayList<>();
+        dto.getAssetDtos().forEach(aDto -> {
+            Asset asset = new Asset();
+            asset.updateEntityFromDto(aDto);
+            assetList.add(asset);
+        });
+        this.assets = assetList;
+    }
+
+    public void dtoToEntity(VisitorCreateDto dto) {
         this.name = dto.getName() != null ? dto.getName() : name;
         this.birthDay = dto.getBirthDay() != null ? dto.getBirthDay() : birthDay;
-
-
-        this.assets = dto.getAssetDtos().stream()
-                .map(a -> Asset.builder()
-                        .name(a.getName())
-                        .build())
-                .collect(Collectors.toList());
-
-        return this;
+        this.purpose = dto.getPurpose() != null ? VIsitPurpose.valueOf(dto.getPurpose()) : purpose;
     }
 }

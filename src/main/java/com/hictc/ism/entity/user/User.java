@@ -2,6 +2,7 @@ package com.hictc.ism.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hictc.ism.entity.approval.Approval;
+import com.hictc.ism.entity.reserve.Reserve;
 import com.hictc.ism.entity.reserve.Visitor;
 import com.hictc.ism.dto.user.UserDto;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,7 @@ public class User {
 
     @JsonIgnoreProperties({"staffUser"})
     @OneToMany(mappedBy = "staffUser", fetch = FetchType.LAZY)
-    private List<Visitor> visitors = new ArrayList<>();
+    private List<Reserve> reserves = new ArrayList<>();
 
     @ManyToOne
     private Company company;

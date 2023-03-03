@@ -1,9 +1,8 @@
 package com.hictc.ism.entity.asset;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.hictc.ism.dto.reserve.VisitorCreateDto;
+import com.hictc.ism.entity.reserve.Visitor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@ToString
 public class Asset {
 
     @Id
@@ -23,10 +23,22 @@ public class Asset {
 
     private String serialNumber;
 
+    @ManyToOne
+    private Visitor visitor;
+
     @Enumerated(EnumType.STRING)
     private AssetType assetType;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public void withVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public void updateEntityFromDto(VisitorCreateDto.AssetDto dto) {
+        this.name = dto.getName() != null ? dto.getName() : name;
+        this.assetType = (dto.getProductType() != null)
+                ? AssetType.valueOf(dto.getProductType()) : assetType;
+    }
 }

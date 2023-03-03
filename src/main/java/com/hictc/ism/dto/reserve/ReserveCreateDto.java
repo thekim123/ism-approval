@@ -1,21 +1,27 @@
 package com.hictc.ism.dto.reserve;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReserveCreateDto {
-
+    private Long id;
     private String leaderName;
     private StaffUserDto staffUserDto;
+    private List<VisitorCreateDto> visitorCreateDtoList;
+
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class StaffUserDto {
         private String username;
     }
