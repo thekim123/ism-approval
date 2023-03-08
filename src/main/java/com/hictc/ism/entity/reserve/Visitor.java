@@ -1,11 +1,9 @@
 package com.hictc.ism.entity.reserve;
 
 
-import com.hictc.ism.dto.reserve.VisitorCreateDto;
+import com.hictc.ism.dto.reserve.VisitorDto;
 import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.asset.Asset;
-import com.hictc.ism.entity.asset.AssetType;
-import com.hictc.ism.entity.user.User;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -38,7 +35,7 @@ public class Visitor {
     private VIsitPurpose purpose;
 
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
-    private List<Asset> assets = new ArrayList<>();
+    private List<Asset> assetList = new ArrayList<>();
     @ManyToOne
     private Approval approval;
 
@@ -58,17 +55,17 @@ public class Visitor {
     }
 
 
-    public void withAssets(VisitorCreateDto dto) {
+    public void withAssets(VisitorDto dto) {
         List<Asset> assetList = new ArrayList<>();
-        dto.getAssetDtos().forEach(aDto -> {
+        dto.getAssetList().forEach(aDto -> {
             Asset asset = new Asset();
             asset.updateEntityFromDto(aDto);
             assetList.add(asset);
         });
-        this.assets = assetList;
+        this.assetList = assetList;
     }
 
-    public void dtoToEntity(VisitorCreateDto dto) {
+    public void dtoToEntity(VisitorDto dto) {
         this.name = dto.getName() != null ? dto.getName() : name;
         this.birthDay = dto.getBirthDay() != null ? dto.getBirthDay() : birthDay;
         this.purpose = dto.getPurpose() != null ? VIsitPurpose.valueOf(dto.getPurpose()) : purpose;

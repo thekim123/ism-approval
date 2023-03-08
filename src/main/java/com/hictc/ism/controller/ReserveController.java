@@ -1,6 +1,6 @@
 package com.hictc.ism.controller;
 
-import com.hictc.ism.dto.reserve.ReserveCreateDto;
+import com.hictc.ism.dto.reserve.ReserveDto;
 import com.hictc.ism.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,13 +14,13 @@ public class ReserveController {
     private final ReserveService reserveService;
 
     @PostMapping
-    public ResponseEntity<?> submitReserve(@RequestBody ReserveCreateDto dto) {
+    public ResponseEntity<?> submitReserve(@RequestBody ReserveDto dto) {
         reserveService.submitReserve(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("방문 예약이 완료되었습니다.");
     }
 
     @PutMapping
-    public ResponseEntity<?> updateReserve(@RequestBody ReserveCreateDto dto) {
+    public ResponseEntity<?> updateReserve(@RequestBody ReserveDto dto) {
         reserveService.updateReserve(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("방문 예약이 수정이 완료되었습니다.");
     }
@@ -29,6 +29,12 @@ public class ReserveController {
     public ResponseEntity<?> deleteReserve(@PathVariable Long reserveId) {
         reserveService.deleteReserve(reserveId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("방문 예약 삭제가 완료되었습니다.");
+    }
+
+    @GetMapping("/detail/{reserveId}")
+    public ResponseEntity<?> getReserveDetail(@PathVariable Long reserveId) {
+        reserveService.getReserveDetail(reserveId);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 

@@ -1,6 +1,7 @@
 package com.hictc.ism.entity.asset;
 
-import com.hictc.ism.dto.reserve.VisitorCreateDto;
+import com.hictc.ism.dto.reserve.AssetDto;
+import com.hictc.ism.dto.reserve.VisitorDto;
 import com.hictc.ism.entity.reserve.Visitor;
 import lombok.*;
 
@@ -36,7 +37,7 @@ public class Asset {
         this.visitor = visitor;
     }
 
-    public void updateEntityFromDto(VisitorCreateDto.AssetDto dto) {
+    public void updateEntityFromDto(AssetDto dto) {
         this.name = dto.getName() != null ? dto.getName() : name;
         this.assetType = (dto.getProductType() != null)
                 ? AssetType.valueOf(dto.getProductType()) : assetType;

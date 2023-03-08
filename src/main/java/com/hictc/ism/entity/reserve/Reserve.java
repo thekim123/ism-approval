@@ -1,6 +1,6 @@
 package com.hictc.ism.entity.reserve;
 
-import com.hictc.ism.dto.reserve.ReserveCreateDto;
+import com.hictc.ism.dto.reserve.ReserveDto;
 import com.hictc.ism.entity.user.User;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class Reserve {
     private User staffUser;
 
     @OneToMany(mappedBy = "reserve",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Visitor> visitors = new ArrayList<>();
+    private List<Visitor> visitorList = new ArrayList<>();
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -37,9 +37,12 @@ public class Reserve {
         this.staffUser = user;
     }
 
-    public void dtoToEntityWhenSave(ReserveCreateDto dto) {
+    public void dtoToEntityWhenSave(ReserveDto dto) {
         this.leaderName = dto.getLeaderName();
     }
 
 
+    public void setVisitorList(List<Visitor> visitorList) {
+        this.visitorList = visitorList;
+    }
 }
