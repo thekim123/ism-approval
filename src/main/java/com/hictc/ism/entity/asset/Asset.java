@@ -37,6 +37,14 @@ public class Asset {
         this.visitor = visitor;
     }
 
+
+    public void dtoToEntity(AssetDto dto) {
+        this.name = (dto.getName() != null) ? dto.getName() : name;
+        this.assetType = (dto.getProductType() != null) ?
+                AssetType.valueOf(dto.getProductType()) : null;
+        this.serialNumber = (dto.getSerialNumber() != null) ? dto.getSerialNumber() : serialNumber;
+    }
+
     public void updateEntityFromDto(AssetDto dto) {
         this.name = dto.getName() != null ? dto.getName() : name;
         this.assetType = (dto.getProductType() != null)

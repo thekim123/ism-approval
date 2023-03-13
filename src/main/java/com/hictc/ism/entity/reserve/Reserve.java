@@ -1,13 +1,15 @@
 package com.hictc.ism.entity.reserve;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hictc.ism.dto.reserve.ReserveDto;
+import com.hictc.ism.dto.reserve.VisitorDto;
 import com.hictc.ism.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -27,8 +29,9 @@ public class Reserve {
     @ManyToOne(fetch = FetchType.LAZY)
     private User staffUser;
 
-    @OneToMany(mappedBy = "reserve",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Visitor> visitorList = new ArrayList<>();
+    @JsonIgnoreProperties({"reserve"})
+    @OneToMany(mappedBy = "reserve", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Visitor> visitorList;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -41,8 +44,14 @@ public class Reserve {
         this.leaderName = dto.getLeaderName();
     }
 
-
-    public void setVisitorList(List<Visitor> visitorList) {
-        this.visitorList = visitorList;
+    public void getVisitorListFromReserveDto(List<VisitorDto> visitorDtoList) {
+        this.visitorList = visitorDtoList.stream()
+                .map(visitorDto -> {
+                    Visitor v = new Visitor();
+                    v.dtoToEntity(visitorDto);
+                    v.withAssets(visitorDto.getAssetList());
+                    return v;
+                }).collect(Collectors.toList());
     }
+
 }

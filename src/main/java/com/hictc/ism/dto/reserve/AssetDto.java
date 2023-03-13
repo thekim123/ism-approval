@@ -9,4 +9,6 @@ public class AssetDto {
     private Long id;
     private String name;
     private String productType;
+    private String serialNumber;
+
 }

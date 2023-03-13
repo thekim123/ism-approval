@@ -5,8 +5,8 @@ import com.hictc.ism.entity.reserve.Visitor;
 import com.hictc.ism.entity.user.User;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -19,11 +19,11 @@ public class ReserveDto {
     private StaffUserDto staffUserDto;
     private List<VisitorDto> visitorList;
 
-
     public void entityToDto(Reserve entity) {
         this.id = entity.getId();
         this.leaderName = entity.getLeaderName();
     }
+
 
     public void withStaffUser(User user) {
         this.staffUserDto = StaffUserDto.builder()
@@ -31,11 +31,14 @@ public class ReserveDto {
                 .build();
     }
 
-    public void withVisitorDto(List<Visitor> visitors) {
-        this.visitorList = new ArrayList<>();
-        visitors.forEach(v -> {
 
-        });
+
+    public void withVisitorList(List<Visitor> visitorList) {
+        this.visitorList = visitorList.stream().map(v -> {
+            VisitorDto dto = new VisitorDto();
+            dto.entityToDto(v);
+            dto.transferAssetListToDto(v.getAssetList());
+            return dto;
+        }).collect(Collectors.toList());
     }
-
 }

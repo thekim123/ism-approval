@@ -1,6 +1,8 @@
 package com.hictc.ism.entity.reserve;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hictc.ism.dto.reserve.AssetDto;
 import com.hictc.ism.dto.reserve.VisitorDto;
 import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.asset.Asset;
@@ -10,8 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -27,6 +31,7 @@ public class Visitor {
     @Column
     private String name;
     private String content;
+    private String companyName;
 
     @ManyToOne
     private Reserve reserve;
@@ -34,8 +39,9 @@ public class Visitor {
     @Column(nullable = false)
     private VIsitPurpose purpose;
 
+    @JsonIgnoreProperties({"visitor"})
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
-    private List<Asset> assetList = new ArrayList<>();
+    private List<Asset> assetList;
     @ManyToOne
     private Approval approval;
 
@@ -66,8 +72,22 @@ public class Visitor {
     }
 
     public void dtoToEntity(VisitorDto dto) {
-        this.name = dto.getName() != null ? dto.getName() : name;
-        this.birthDay = dto.getBirthDay() != null ? dto.getBirthDay() : birthDay;
-        this.purpose = dto.getPurpose() != null ? VIsitPurpose.valueOf(dto.getPurpose()) : purpose;
+        this.name = (dto.getName() != null) ? dto.getName() : name;
+        this.purpose = (dto.getPurpose() != null) ? VIsitPurpose.valueOf(dto.getPurpose()) : purpose;
+        this.birthDay = (dto.getBirthDay() != null) ?
+                LocalDate.parse(dto.getBirthDay(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : birthDay;
+        this.companyName = (dto.getCompanyName() != null) ? dto.getCompanyName() : companyName;
     }
+
+
+    public void withAssets(List<AssetDto> assetDtoList) {
+        this.assetList = assetDtoList.stream().map(a -> {
+            Asset asset = new Asset();
+            asset.dtoToEntity(a);
+            asset.withVisitor(this);
+            return asset;
+        }).collect(Collectors.toList());
+    }
+
+
 }

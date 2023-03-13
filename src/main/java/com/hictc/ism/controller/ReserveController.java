@@ -33,9 +33,8 @@ public class ReserveController {
 
     @GetMapping("/detail/{reserveId}")
     public ResponseEntity<?> getReserveDetail(@PathVariable Long reserveId) {
-        reserveService.getReserveDetail(reserveId);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        ReserveDto dto = reserveService.getReserveDetail(reserveId);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
-
 
 }
