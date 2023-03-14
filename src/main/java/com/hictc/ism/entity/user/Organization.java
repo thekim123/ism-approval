@@ -21,7 +21,7 @@ public class Organization {
     @ManyToOne
     private Company company;
 
-    @OneToOne
+    @ManyToOne
     private User TeamHead;
 
 }

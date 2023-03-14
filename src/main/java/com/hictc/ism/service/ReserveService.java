@@ -6,16 +6,14 @@ import com.hictc.ism.entity.reserve.Reserve;
 import com.hictc.ism.entity.reserve.Visitor;
 import com.hictc.ism.entity.user.User;
 import com.hictc.ism.handler.exception.CustomApiException;
-import com.hictc.ism.repository.AssetRepository;
-import com.hictc.ism.repository.ReserveRepository;
-import com.hictc.ism.repository.UserRepository;
-import com.hictc.ism.repository.VisitorRepository;
+import com.hictc.ism.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +31,10 @@ public class ReserveService {
             throw new CustomApiException("해당 사원을 찾을 수 없습니다.");
         });
 
-        Reserve reserveEntity = new Reserve();
+
+        Reserve reserveEntity = Reserve.builder()
+                .reserveId(UUID.randomUUID().toString())
+                .build();
         reserveEntity.dtoToEntityWhenSave(dto);
         reserveEntity.withStaffUser(staffUser);
         reserveEntity.getVisitorListFromReserveDto(dto.getVisitorList());

@@ -1,7 +1,7 @@
 package com.hictc.ism.entity.asset;
 
 import com.hictc.ism.dto.reserve.AssetDto;
-import com.hictc.ism.dto.reserve.VisitorDto;
+import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.reserve.Visitor;
 import lombok.*;
 
@@ -26,6 +26,9 @@ public class Asset {
 
     @ManyToOne
     private Visitor visitor;
+
+    @ManyToOne
+    private Approval approval;
 
     @Enumerated(EnumType.STRING)
     private AssetType assetType;

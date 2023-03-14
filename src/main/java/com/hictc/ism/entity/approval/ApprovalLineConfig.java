@@ -19,9 +19,12 @@ public class ApprovalLineConfig {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private Integer step;
+
+    @Enumerated(EnumType.STRING)
+    private ApprovalType approvalType;
 
     @ManyToOne
     private User requestUser;

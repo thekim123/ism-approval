@@ -23,6 +23,9 @@ public class Reserve {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private String reserveId;
+
     private String leaderName;
 
     @JoinColumn(name = "staffUserId")

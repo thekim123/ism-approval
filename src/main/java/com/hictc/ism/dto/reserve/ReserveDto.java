@@ -15,12 +15,14 @@ import java.util.stream.Collectors;
 @ToString
 public class ReserveDto {
     private Long id;
+    private String reserveId;
     private String leaderName;
     private StaffUserDto staffUserDto;
     private List<VisitorDto> visitorList;
 
     public void entityToDto(Reserve entity) {
         this.id = entity.getId();
+        this.reserveId = entity.getReserveId();
         this.leaderName = entity.getLeaderName();
     }
 
@@ -30,8 +32,6 @@ public class ReserveDto {
                 .username(user.getUsername())
                 .build();
     }
-
-
 
     public void withVisitorList(List<Visitor> visitorList) {
         this.visitorList = visitorList.stream().map(v -> {

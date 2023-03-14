@@ -13,7 +13,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,16 +59,15 @@ public class Visitor {
         this.reserve = reserve;
     }
 
-
-    public void withAssets(VisitorDto dto) {
-        List<Asset> assetList = new ArrayList<>();
-        dto.getAssetList().forEach(aDto -> {
-            Asset asset = new Asset();
-            asset.updateEntityFromDto(aDto);
-            assetList.add(asset);
-        });
-        this.assetList = assetList;
-    }
+//    public void withAssets(VisitorDto dto) {
+//        List<Asset> assetList = new ArrayList<>();
+//        dto.getAssetList().forEach(aDto -> {
+//            Asset asset = new Asset();
+//            asset.updateEntityFromDto(aDto);
+//            assetList.add(asset);
+//        });
+//        this.assetList = assetList;
+//    }
 
     public void dtoToEntity(VisitorDto dto) {
         this.name = (dto.getName() != null) ? dto.getName() : name;
