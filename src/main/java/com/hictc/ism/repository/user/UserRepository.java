@@ -1,4 +1,4 @@
-package com.hictc.ism.repository;
+package com.hictc.ism.repository.user;
 
 import com.hictc.ism.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -46,4 +46,5 @@ public class UserController {
         userService.deleteUser(principalDetails);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("회원 삭제 완료");
     }
+
 }

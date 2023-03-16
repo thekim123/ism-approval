@@ -1,6 +1,6 @@
 package com.hictc.ism.config.auth;
 
-import com.hictc.ism.repository.UserRepository;
+import com.hictc.ism.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

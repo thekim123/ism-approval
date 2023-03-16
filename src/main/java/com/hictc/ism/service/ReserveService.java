@@ -6,7 +6,10 @@ import com.hictc.ism.entity.reserve.Reserve;
 import com.hictc.ism.entity.reserve.Visitor;
 import com.hictc.ism.entity.user.User;
 import com.hictc.ism.handler.exception.CustomApiException;
-import com.hictc.ism.repository.*;
+import com.hictc.ism.repository.reserve.AssetRepository;
+import com.hictc.ism.repository.reserve.ReserveRepository;
+import com.hictc.ism.repository.reserve.VisitorRepository;
+import com.hictc.ism.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,11 @@ public class ReserveService {
     private final VisitorRepository visitorRepository;
     private final AssetRepository assetRepository;
 
+    /**
+     * 방문예약 신청
+     *
+     * @param dto 방문예약 dto
+     */
     @Transactional
     public void submitReserve(ReserveDto dto) {
         String staffUsername = dto.getStaffUserDto().getUsername();
@@ -53,8 +61,12 @@ public class ReserveService {
 
     }
 
-
-    // 피방문자 수정은 불가함.
+    /**
+     * 방문예약 수정
+     *
+     * @param dto 방문예약 dto
+     * @apiNote 피방문자 수정은 불가
+     */
     @Transactional
     public void updateReserve(ReserveDto dto) {
         Reserve reserveEntity = reserveRepository.findById(dto.getId()).orElseThrow(() -> {
@@ -81,6 +93,11 @@ public class ReserveService {
         visitorRepository.saveAll(visitorList);
     }
 
+    /**
+     * 방문예약 취소
+     *
+     * @param reserveId 방문예약 Id
+     */
     @Transactional
     public void deleteReserve(Long reserveId) {
         Reserve reserveEntity = reserveRepository.findById(reserveId).orElseThrow(() -> {
@@ -89,6 +106,12 @@ public class ReserveService {
         reserveRepository.delete(reserveEntity);
     }
 
+    /**
+     * 방문예약 상세보기
+     *
+     * @param reserveId
+     * @return 방문예약 상세 Data
+     */
     @Transactional(readOnly = true)
     public ReserveDto getReserveDetail(Long reserveId) {
         Reserve entity = reserveRepository.findById(reserveId).orElseThrow(() -> {

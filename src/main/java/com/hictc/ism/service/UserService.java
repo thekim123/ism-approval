@@ -1,10 +1,12 @@
 package com.hictc.ism.service;
 
 import com.hictc.ism.config.auth.PrincipalDetails;
+import com.hictc.ism.entity.user.Organization;
 import com.hictc.ism.handler.exception.CustomApiException;
 import com.hictc.ism.dto.user.UserDto;
 import com.hictc.ism.entity.user.User;
-import com.hictc.ism.repository.UserRepository;
+import com.hictc.ism.repository.user.OrganizationRepository;
+import com.hictc.ism.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final OrganizationRepository organizationRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public void createUser(UserDto.Create dto) {
-        User user = new User().dtoToEntity(dto)
-                .encodingPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        Organization organization = organizationRepository.findByCode(dto.getOrganizationCode()).orElseThrow(() -> {
+            throw new CustomApiException("해당 조직을 찾을 수 없습니다.");
+        });
+
+        User user = new User();
+        user.dtoToEntity(dto);
+        user.encodingPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        user.withOrgAndCompany(organization);
+
         userRepository.save(user);
     }
 

@@ -1,4 +1,4 @@
-package com.hictc.ism.repository;
+package com.hictc.ism.repository.reserve;
 
 import com.hictc.ism.entity.asset.Asset;
 import com.hictc.ism.entity.reserve.Reserve;

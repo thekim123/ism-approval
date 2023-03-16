@@ -23,15 +23,17 @@ public class ApprovalLineConfig {
 
     private Integer step;
 
+
     @Enumerated(EnumType.STRING)
     private ApprovalType approvalType;
 
-    @ManyToOne
-    private User requestUser;
 
-    @ManyToOne
-    private Organization organization;
+    @Transient
+    private ApprovalLineConfig nextConfig;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+
+
 }

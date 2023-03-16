@@ -1,5 +1,7 @@
 package com.hictc.ism.entity.approval;
 
+import com.hictc.ism.entity.user.Organization;
+import com.hictc.ism.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +21,14 @@ public class ApprovalLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer sequence;
+    private Integer step;
+    private ApprovalStatus approvalStatus;
+
+    @ManyToOne
+    private User requestUser;
+
+    @ManyToOne
+    private Organization organization;
 
     @ManyToOne
     @JoinColumn(name = "approvalId")
@@ -27,4 +36,5 @@ public class ApprovalLine {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

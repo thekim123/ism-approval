@@ -1,4 +1,4 @@
-package com.hictc.ism.repository;
+package com.hictc.ism.repository.approval;
 
 import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.reserve.Reserve;

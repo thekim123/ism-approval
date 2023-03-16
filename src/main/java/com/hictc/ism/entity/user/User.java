@@ -3,7 +3,6 @@ package com.hictc.ism.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hictc.ism.entity.approval.Approval;
 import com.hictc.ism.entity.reserve.Reserve;
-import com.hictc.ism.entity.reserve.Visitor;
 import com.hictc.ism.dto.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -59,18 +58,21 @@ public class User {
     private LocalDateTime updatedAt;
 
 
-    public User encodingPassword(String encodedPassword) {
+    public void encodingPassword(String encodedPassword) {
         this.password = encodedPassword;
-        return this;
     }
 
-    public User dtoToEntity(UserDto.Create dto) {
+    public void dtoToEntity(UserDto.Create dto) {
         this.username = dto.getUsername() != null ? dto.getUsername() : this.username;
         this.name = dto.getName() != null ? dto.getName() : this.name;
         this.password = dto.getPassword() != null ? dto.getPassword() : this.password;
         this.email = dto.getEmail() != null ? dto.getEmail() : this.email;
         this.birthDay = dto.getBirthDay() != null ? dto.getBirthDay() : this.birthDay;
-        return this;
+    }
+
+    public void withOrgAndCompany(Organization organization) {
+        this.organization = organization;
+        this.company = organization.getCompany();
     }
 
 }

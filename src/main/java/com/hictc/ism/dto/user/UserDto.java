@@ -20,6 +20,7 @@ public class UserDto {
         private String username;
         private String password;
         private String name;
+        private String organizationCode;
         private String email;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthDay;
@@ -33,6 +34,7 @@ public class UserDto {
         private Long id;
         private String username;
         private String name;
+        private String organizationName;
         private String email;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -43,6 +45,8 @@ public class UserDto {
             this.username = entity.getUsername();
             this.name = entity.getName();
             this.email = entity.getEmail();
+            this.birthDay = entity.getBirthDay();
+            this.organizationName = entity.getOrganization().getName();
             return this;
         }
     }
