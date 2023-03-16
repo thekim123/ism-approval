@@ -44,9 +44,11 @@ public class ApprovalService {
                 .approvalLine(approvalLineList)
                 .build();
 
+
         List<ApprovalLineConfig> lineConfig = approvalLineConfigRepository.findByApprovalType(ApprovalType.RESERVE);
         approvalLineList = buildApprovalLine(lineConfig, reserveEntity.getStaffUser(), approval);
 
+        System.out.println(approvalLineList);
         approvalRepository.save(approval);
         approvalLineRepository.saveAll(approvalLineList);
     }
@@ -69,6 +71,7 @@ public class ApprovalService {
                         .approvalStatus(ApprovalStatus.APPROVED)
                         .requestUser(requestUser)
                         .organization(requestUser.getOrganization())
+                        .approver(requestUser)
                         .approval(approval)
                         .build();
             } else {
@@ -77,6 +80,7 @@ public class ApprovalService {
                         .approvalStatus(ApprovalStatus.APPROVAL)
                         .requestUser(requestUser)
                         .organization(requestUser.getOrganization())
+                        .approver(requestUser.getOrganization().getTeamHead())
                         .approval(approval)
                         .build();
             }

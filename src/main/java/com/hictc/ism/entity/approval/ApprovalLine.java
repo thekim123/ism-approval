@@ -30,6 +30,9 @@ public class ApprovalLine {
     @ManyToOne
     private Organization organization;
 
+    @OneToOne
+    private User approver;
+
     @ManyToOne
     @JoinColumn(name = "approvalId")
     private Approval approval;

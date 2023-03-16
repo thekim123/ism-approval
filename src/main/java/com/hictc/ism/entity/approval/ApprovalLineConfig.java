@@ -28,9 +28,6 @@ public class ApprovalLineConfig {
     private ApprovalType approvalType;
 
 
-    @Transient
-    private ApprovalLineConfig nextConfig;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
